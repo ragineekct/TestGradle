@@ -8,22 +8,48 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin: 'eclipse'
+//apply plugin: "org.detoeuf.swagger-codegen"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven
+    {
+    url "http://repo1.maven.org/maven2/"
+    url "https://plugins.gradle.org/m2/"
+   
+    }
 }
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
+    compile 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:21.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0'
+    
+ 	compile  'io.swagger:swagger-annotations:1.5.16'
+     
+     compile 'com.github.ci-cd:gradle-swagger-plugin:1.0'
+     compile "gradle.plugin.org.detoeuf:swagger-codegen-plugin:1.7.2"
+    
 }
+
+sourceSets {
+    swagger {
+        java {
+            srcDir file("${project.buildDir.path}/swagger/src/main/java")
+        }
+    }
+}
+
 
